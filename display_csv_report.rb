@@ -11,6 +11,20 @@ class Data
 	end
 end
 
+
+class List
+	attr_accessor :datas
+	def initialize
+		@datas = {}
+	end
+
+	def fault
+		@datas.select do |number, data|
+			data.fault == true
+		end
+	end
+end
+
 def read_from_file(file_name)
 	data = CSV.read(file_name, headers: true)
 	data.each do |row|
