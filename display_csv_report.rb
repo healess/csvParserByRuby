@@ -28,17 +28,26 @@ end
 def read_from_file(file_name)
 	data = CSV.read(file_name, headers: true)
 	data.each do |row|
-		first = if casts[row["first_column"]].nil?
-		 	Cast.new(row["first_column"])
+		first = if groups[row["first_column"]].nil?
+		 	group.new(row["first_column"])
 		else
-			casts[row["first_column"]]
+			datas[row["first_column"]]
 		end
-		cast.add_slab(row["uncond_no"], row["cast_str_num"].to_i, row["star_def_yn"] == "1")
-		casts[row["cast_no"]] = cast
+		cast.add_data(row["first_column"], row["second_column"].to_i, row["third_column"] == "1")
+		groups[data["first_column"]] = group
 	end
 end
 
 class Report
+
+	def print_report
+		group.each do |key, group|
+			puts group
+		end
+		puts "******* group REPORT *********"
+		puts "number of group: #{groups.count}"
+		puts "number of data: #{num_datas}"
+	end
 end
 
 class print_report
